@@ -159,7 +159,8 @@ struct audio_policy {
                                    uint32_t samplingRate,
                                    audio_format_t format,
                                    audio_channel_mask_t channelMask,
-                                   audio_in_acoustics_t acoustics);
+                                   audio_in_acoustics_t acoustics,
+                                   audio_input_clients *inputClientId);
 
     /* indicates to the audio policy manager that the input starts being used */
     int (*start_input)(struct audio_policy *pol, audio_io_handle_t input);
@@ -312,10 +313,12 @@ struct audio_policy_service_ops {
                                     uint32_t *pSamplingRate,
                                     audio_format_t *pFormat,
                                     audio_channel_mask_t *pChannelMask,
-                                    audio_in_acoustics_t acoustics);
+                                    audio_in_acoustics_t acoustics,
+                                    audio_input_clients *pInputClientId);
 
     /* closes an audio input */
-    int (*close_input)(void *service, audio_io_handle_t input);
+    int (*close_input)(void *service, audio_io_handle_t input,
+                        audio_input_clients *inputClientId);
 
     /* */
     /* misc control functions */
@@ -408,7 +411,8 @@ struct audio_policy_service_ops {
                                     audio_devices_t *pDevices,
                                     uint32_t *pSamplingRate,
                                     audio_format_t *pFormat,
-                                    audio_channel_mask_t *pChannelMask);
+                                    audio_channel_mask_t *pChannelMask,
+                                    audio_input_clients *pInputClientId);
 
 };
 
